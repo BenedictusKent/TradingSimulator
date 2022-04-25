@@ -5,10 +5,10 @@ The goal of this project is to do auto trading using the data of certain provide
 ## Data
 
 Stock used in this project is the data of ```NASDAQ:IBM```.  
-Data contains 4 columns: ```open, high, low, close```
+Data contains 4 columns: ```open, high, low, close```  
 ![Table sample](/img/table.png)
 
-The chart below shows the graph of the training data:
+The chart below shows the graph of the training data:  
 ![Chart sample](/img/chart.png)
 
 ## Training
