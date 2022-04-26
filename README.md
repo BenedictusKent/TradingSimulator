@@ -21,6 +21,7 @@ Since we are mainly focusing on the time series problem.
 - cell state (current long-term memory of network)
 - previous hidden state (output of previous data)
 - input data 
+
 LSTM uses series of gates to control information flow
 which acts as filters to generate information for training
 - forget gate
