@@ -1,12 +1,12 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.preprocessing import MinMaxScaler
-import numpy as np
-from keras.models import Sequential
-from keras.layers import Dense, Dropout, LSTM, Bidirectional
 import math
-from sklearn.metrics import mean_squared_error
+import numpy as np
+import pandas as pd
+import tensorflow as tf
+import matplotlib.pyplot as plt
+from keras.models import Sequential
 from keras.models import load_model
+from keras.layers import Dense, Dropout, LSTM
+from sklearn.preprocessing import MinMaxScaler
 
 # You can write code above the if-main block.
 def __create_dataset(timestep,data):
@@ -23,6 +23,7 @@ def __create_dataset(timestep,data):
   # print(y_train[0])
   x_train = np.reshape(x_train, (x_train.shape[0], x_train.shape[1], 1))
   return x_train,y_train
+
 def __train(x_train,y_train):
   model = Sequential()
   model.add(LSTM(50, return_sequences=True, input_shape=(x_train.shape[1], 1)))
@@ -37,6 +38,7 @@ def __train(x_train,y_train):
   model.compile(optimizer='adam', loss='mean_squared_error')
   model.fit(x_train, y_train, epochs=100, batch_size=32)
   return model
+
 def __create_test(timestep,train,test):
   train = train.iloc[:,0:1].values
   test = test.iloc[:,0:1].values
@@ -48,6 +50,7 @@ def __create_test(timestep,train,test):
   x_test = np.reshape(x_test, (x_test.shape[0], x_test.shape[1], 1))
   # print(x_test.shape)
   return x_test
+
 def __action(status,yesterday_price,data,model):
   sc = MinMaxScaler(feature_range = (0, 1))
   data = sc.fit_transform(data)
@@ -72,6 +75,7 @@ def __action(status,yesterday_price,data,model):
       status = 1
       action = 0
   return status, action, predicted
+
 if __name__ == "__main__":
     # You should not modify this part.
     import argparse
@@ -81,6 +85,9 @@ if __name__ == "__main__":
     parser.add_argument("--testing", default="testing_data.csv", help="input testing data file name")
     parser.add_argument("--output", default="output.csv", help="output file name")
     args = parser.parse_args()
+    physical_devices = tf.config.experimental.list_physical_devices('GPU')
+    assert len(physical_devices) > 0, "Not enough GPU hardware devices available"
+    config = tf.config.experimental.set_memory_growth(physical_devices[0], True)
     # The following part is an example.
     # You can modify it at will.
     training = pd.read_csv(args.training,delimiter=',',names=['Open','High','Low','Close'])
@@ -95,7 +102,7 @@ if __name__ == "__main__":
     y_1 = []
     y_2 = []
     with open(args.output, "w") as output_file:
-        for val,row in enumerate(testing_data):
+        for val,row in enumerate(testing_data[:-1]):
             # We will perform your action as the open price in the next day.
             status, action, predicted = __action(status,yesterday_price,row,model)
             # print("Day:",val,",",status,action)
