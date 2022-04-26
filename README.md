@@ -16,7 +16,7 @@ Since we are mainly focusing on the time series problem.
 - LSTM contains feedback connections which make them different to traditional feedforward neural networks.
 - which allows useful information about preious data in sequence to help with the processing of new data points.
 
-## How does LSTM works?
+### How does LSTM works?
 3 main dependencies
 - cell state (current long-term memory of network)
 - previous hidden state (output of previous data)
@@ -28,7 +28,7 @@ which acts as filters to generate information for training
 - output gates
 For more detailed explanation, please refer here [LSTM](https://towardsdatascience.com/lstm-networks-a-detailed-explanation-8fae6aefc7f9)
 
-## Model Architecture
+### Model Architecture
 
 ## Testing
 [something shall be written here...]
