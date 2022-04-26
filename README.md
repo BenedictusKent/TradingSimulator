@@ -27,9 +27,12 @@ which acts as filters to generate information for training:
 - forget gate
 - input gate
 - output gates  
+
 For more detailed explanation, please refer here [LSTM](https://towardsdatascience.com/lstm-networks-a-detailed-explanation-8fae6aefc7f9)
 
 ### Model Architecture
+Below is the summary of the model architecture used:  
+![Model summary](/img/model.png)
 
 ## Testing
 [something shall be written here...]
